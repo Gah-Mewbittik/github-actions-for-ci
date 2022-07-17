@@ -1,7 +1,14 @@
-The team would like: 
- - [ ] branch protections
- - [ ] required review approvals
- - [ ] easy way to see when enough approvals has been achieved
- - [ ] matrix build
- - [ ] save build artifacts
- - [ ] dedicated test job
+on: pull_request_review
+name: Label approved pull requests
+jobs:
+  labelWhenApproved:
+    name: Label when approved
+    runs-on: ubuntu-latest
+    steps:
+    - name: Label when approved
+      uses: pullreminders/label-when-approved-action@master
+      env:
+        APPROVALS: "2"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ADD_LABEL: "approved"
+        REMOVE_LABEL: "awaiting%20review"
